@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,9 +39,10 @@
         }
         const sear_input = {
             width: 300,
-            height: 36,
+            height: 41,
             borderRadius: 20,
             background: '#fafafa',
+            opacity: 0.6
         }
 
         // 轮播图列表
@@ -67,8 +69,8 @@
             },
         ]
         // 循环列表代码，直接插入下面代码即可：例如{img_listItems}
-        const img_listItems = CarouselList.map((item) =>
-            <div>
+        const img_listItems = CarouselList.map((item, index) =>
+            <div key={index}>
                 <img src={item.url} alt={item.name} width="100%" height="100%" />
             </div>
         )
@@ -107,8 +109,8 @@
             },
         ]
         // 循环列表代码，直接插入下面代码即可：例如{game_listItems}
-        const game_listItems = gameList.map((item) =>
-            <Col className='whi-bg border game-li' span={8} >
+        const game_listItems = gameList.map((item, index) =>
+            <Col className='whi-bg border game-li' span={8} key={index}>
                 <a href="" className='a-game'>
                     <img src={item.img_url} alt="" width='105' />
                     <h3 className='game-name'>{item.game_name}</h3>
@@ -119,9 +121,9 @@
 
         // 游戏类型列表
         const gametypeList = ['新游推荐', '潮流口袋必备', '单机游戏', '热门游戏']
-         // 循环列表代码，直接插入下面代码即可：例如{gametype_items}
-        const gametype_items = gametypeList.map((item) =>
-            <div className='whi-bg game-list'>
+        // 循环列表代码，直接插入下面代码即可：例如{gametype_items}
+        const gametype_items = gametypeList.map((item, index) =>
+            <div className='whi-bg game-list' key={index}>
                 <div className='game-head'>
                     <div><i className='v-line'></i>{item}</div>
                     <div>{'更多  >'}</div>
@@ -149,9 +151,9 @@
             render() {
                 return (
                     <div style={Top_Style}>
-                        {/* 头部搜索 */}
-                        <div className='head-box'>
-                            <div >
+                        {/* 头部搜索  goScroll为true向下滚动头部搜索背景改变为黄色，反之false不改背景*/}
+                        <div id='head-box' className={this.props.goScroll?'head-box head-box-yello':'head-box'}>
+                            <div>
                                 <a href="#" >
                                     <img src="http://pyw.cn/wap/images/logo.png" alt="" width='123px' height='40.5px' />
                                 </a>
@@ -159,9 +161,9 @@
                             <Space direction="vertical" style={{ padding: '0 20px' }}>
                                 <Input placeholder="" onClick={this.onSearch} bordered={false} style={sear_input} />
                             </Space>
-                            <div>
-                                <a href="#" style={{ width: 36, height: 36 }}>
-
+                            <div className='head-login'>
+                                <a href="#">
+                                    <span className='i-48 i-user'></span>
                                 </a>
                             </div>
                         </div>
@@ -194,13 +196,11 @@
                             <a href="https://v.pinpaibao.com.cn/authenticate/cert/?site=pyw.cn&amp;at=business" target="_blank">
                                 <img className='game-list' src="http://static.anquan.org/static/outer/image/hy_124x47.png?id=pyw.cn?t=37" alt="安全联盟认证" width="124" height="47" />
                             </a>
-                            <p>
-                                <ul>
-                                    <li><a>下载客户端</a></li>
-                                    <li className='li-border'><a>关于我们</a></li>
-                                    <li><a>联系客服</a></li>
-                                </ul>
-                            </p>
+                            <ul>
+                                <li><a>下载客户端</a></li>
+                                <li className='li-border'><a>关于我们</a></li>
+                                <li><a>联系客服</a></li>
+                            </ul>
                             <p>©广州朋友玩网络科技有限公司  版权所有</p>
                             <p><a href="http://www.beian.miit.gov.cn/">粤ICP备13067565号</a></p>
                             <p>公司电话： 020-87698773</p>
@@ -212,29 +212,47 @@
         }
 
         // 父组件，负责所有的状态、操作、引入
-        class Pageindex extends React.Component {
+        class PageIndex extends React.Component {
             // 设置组件传参
             constructor(props) {
                 super(props);
-                this.state = { value: '测试input' };
-                this.handleChange = this.handleChange.bind(this);
+                // goScroll 是否向下滚动
+                this.state = { goScroll: false };
+                this.bindHandleScroll = this.bindHandleScroll.bind(this);
             }
-
-            handleChange(event) {
-                this.setState({ value: event.target.value });
+            //在componentDidMount():第一次渲染后调用，进行scroll事件的注册，绑定一个函数，让这个函数进行监听处理
+            componentDidMount() {
+                window.addEventListener('scroll', this.bindHandleScroll)
+            }
+            //在componentWillUnmount:移除之前立刻被调用，进行scroll事件的注销
+            componentWillUnmount() {
+                window.removeEventListener('scroll', this.bindHandleScroll);
+            }
+            bindHandleScroll(event) {
+                // 滚动的高度
+                const scrollTop = (event.srcElement ? event.srcElement.documentElement.scrollTop : false)
+                    || window.pageYOffset
+                    || (event.srcElement ? event.srcElement.body.scrollTop : 0);
+                console.log(scrollTop);
+                // 如果滚动高度大于10，就判断向下滚动为true，反之为false
+                if( scrollTop > 10 ){
+                    this.setState({goScroll:true})
+                }else{
+                    this.setState({goScroll:false})
+                }
             }
 
             render() {
-                var value = this.state.value
+                var goScroll_Value = this.state.goScroll
                 return (
-                    <Content></Content>
+                    <Content goScroll={goScroll_Value}></Content>
                 );
             }
         }
 
         // 触发
         ReactDOM.render(
-            <Pageindex />,
+            <PageIndex />,
             document.getElementById('example')
         )
 
