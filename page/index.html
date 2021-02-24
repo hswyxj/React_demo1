@@ -70,7 +70,7 @@
         // 循环列表代码，直接插入下面代码即可：例如{img_listItems}
         const img_listItems = CarouselList.map((item, index) =>
             <div key={index}>
-                <img src={item.url} alt={item.name} width="100%" height="100%" />
+                <img src={item.url} alt={item.name} width="100%"/>
             </div>
         )
 
@@ -111,7 +111,7 @@
         const game_listItems = gameList.map((item, index) =>
             <Col className='whi-bg border game-li' span={8} key={index}>
                 <a href="" className='a-game'>
-                    <img src={item.img_url} alt="" width='105' />
+                    <img src={item.img_url} alt="" />
                     <h3 className='game-name'>{item.game_name}</h3>
                 </a>
                 <p className='game-info'>{item.game_info}</p>
@@ -186,8 +186,10 @@
                         <Row gutter={[0, 0]}>
                             {game_listItems}
                         </Row>
-                        {/* 图片 */}
-                        <a href=""><img className='game-list' src="http://img.pyw.cn/issue_activity/20201103/8f741528e9c4da6fd50ab54021ee4006.png" alt="" width='100%' height='143' /></a>
+                        {/* 中间插图片 */}
+                        <a href="">
+                            <img className='game-list' src="http://img.pyw.cn/issue_activity/20201103/8f741528e9c4da6fd50ab54021ee4006.png" alt="" width='100%'/>
+                        </a>
                         {/* 游戏类型列表 */}
                         {gametype_items}
                         {/* 底部 */}
