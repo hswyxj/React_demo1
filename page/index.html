@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React demo首页</title>
+    <link rel="stylesheet" href="../css/base.css" />
+
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+
+    <script src="../js/moment.min.js"></script>
+    <link rel="stylesheet" href="../css/antd.css" />
+    <script src="../js/antd.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+
+    <script type="text/babel">
+        // 引入antd UI框架的组件
+        const { Input, Space, Button, Carousel, Row, Col } = antd;
+
+        // 页面样式定义
+        const contentStyle = {
+            height: '100%',
+            color: '#fff',
+            lineHeight: '100%',
+            textAlign: 'center',
+            background: '#364d79',
+        };
+        const Top_Style = {
+            width: '540px',
+            margin: '0 auto',
+            position: 'relative'
+        }
+        const sear_input = {
+            width: 300,
+            height: 36,
+            borderRadius: 20,
+            background: '#fafafa',
+        }
+
+        // 轮播图列表
+        const CarouselList = [
+            {
+                url: 'http://img.pyw.cn/issue_activity/20190227/320c01dd09d4064d0054b5507ac53141.jpg',
+                name: 'wap-剑侠棋缘'
+            },
+            {
+                url: 'http://img.pyw.cn/issue_activity/20190227/320c01dd09d4064d0054b5507ac53141.jpg',
+                name: 'wap-剑侠棋缘'
+            },
+            {
+                url: 'http://img.pyw.cn/issue_activity/20190227/320c01dd09d4064d0054b5507ac53141.jpg',
+                name: 'wap-剑侠棋缘'
+            },
+            {
+                url: 'http://img.pyw.cn/issue_activity/20190227/320c01dd09d4064d0054b5507ac53141.jpg',
+                name: 'wap-剑侠棋缘'
+            },
+            {
+                url: 'http://img.pyw.cn/issue_activity/20190227/320c01dd09d4064d0054b5507ac53141.jpg',
+                name: 'wap-剑侠棋缘'
+            },
+        ]
+        // 循环列表代码，直接插入下面代码即可：例如{img_listItems}
+        const img_listItems = CarouselList.map((item) =>
+            <div>
+                <img src={item.url} alt={item.name} width="100%" height="100%" />
+            </div>
+        )
+
+        // 热门游戏列表
+        const gameList = [
+            {
+                img_url: 'http://img.pyw.cn/g/4/604/525e77b6c85f001bad0057e7a696e3bb.png',
+                game_name: '天堂2：血盟',
+                game_info: '超燃万人血盟阵营站震撼开启'
+            },
+            {
+                img_url: 'http://img.pyw.cn/g/4/604/525e77b6c85f001bad0057e7a696e3bb.png',
+                game_name: '天堂2：血盟',
+                game_info: '超燃万人血盟阵营站震撼开启'
+            },
+            {
+                img_url: 'http://img.pyw.cn/g/4/604/525e77b6c85f001bad0057e7a696e3bb.png',
+                game_name: '天堂2：血盟',
+                game_info: '超燃万人血盟阵营站震撼开启'
+            },
+            {
+                img_url: 'http://img.pyw.cn/g/4/604/525e77b6c85f001bad0057e7a696e3bb.png',
+                game_name: '天堂2：血盟',
+                game_info: '超燃万人血盟阵营站震撼开启'
+            },
+            {
+                img_url: 'http://img.pyw.cn/g/4/604/525e77b6c85f001bad0057e7a696e3bb.png',
+                game_name: '天堂2：血盟',
+                game_info: '超燃万人血盟阵营站震撼开启'
+            },
+            {
+                img_url: 'http://img.pyw.cn/g/4/604/525e77b6c85f001bad0057e7a696e3bb.png',
+                game_name: '天堂2：血盟',
+                game_info: '超燃万人血盟阵营站震撼开启'
+            },
+        ]
+        // 循环列表代码，直接插入下面代码即可：例如{game_listItems}
+        const game_listItems = gameList.map((item) =>
+            <Col className='whi-bg border game-li' span={8} >
+                <a href="" className='a-game'>
+                    <img src={item.img_url} alt="" width='105' />
+                    <h3 className='game-name'>{item.game_name}</h3>
+                </a>
+                <p className='game-info'>{item.game_info}</p>
+            </Col>
+        )
+
+        // 游戏类型列表
+        const gametypeList = ['新游推荐', '潮流口袋必备', '单机游戏', '热门游戏']
+         // 循环列表代码，直接插入下面代码即可：例如{gametype_items}
+        const gametype_items = gametypeList.map((item) =>
+            <div className='whi-bg game-list'>
+                <div className='game-head'>
+                    <div><i className='v-line'></i>{item}</div>
+                    <div>{'更多  >'}</div>
+                </div>
+            </div>
+        )
+
+        // 页面内容
+        class Content extends React.Component {
+            // 设置组件传参
+            constructor(props) {
+                super(props);
+                this.onChange = this.onChange.bind(this);
+                this.onSearch = this.onSearch.bind(this);
+            }
+            // 函数方法：轮播图变动触发事件
+            onChange(a, b, c) {
+                console.log(a, b, c);
+            }
+            // 函数方法：点击搜索事件
+            onSearch(value) {
+                console.log(value);
+            }
+
+            render() {
+                return (
+                    <div style={Top_Style}>
+                        {/* 头部搜索 */}
+                        <div className='head-box'>
+                            <div >
+                                <a href="#" >
+                                    <img src="http://pyw.cn/wap/images/logo.png" alt="" width='123px' height='40.5px' />
+                                </a>
+                            </div>
+                            <Space direction="vertical" style={{ padding: '0 20px' }}>
+                                <Input placeholder="" onClick={this.onSearch} bordered={false} style={sear_input} />
+                            </Space>
+                            <div>
+                                <a href="#" style={{ width: 36, height: 36 }}>
+
+                                </a>
+                            </div>
+                        </div>
+                        {/* 轮播图 */}
+                        <Carousel afterChange={this.onChange} autoplay>
+                            {img_listItems}
+                        </Carousel>
+                        {/* 全部游戏 */}
+                        <div className='notice-more'>
+                            <div>全部游戏</div>
+                            <div>{'>'}</div>
+                        </div>
+                        {/* 热门游戏头部 */}
+                        <div className='whi-bg game-list'>
+                            <div className='game-head'>
+                                <div><i className='v-line'></i>充值钜惠</div>
+                                <div>{'更多  >'}</div>
+                            </div>
+                        </div>
+                        {/* 热门游戏列表 */}
+                        <Row gutter={[0, 0]}>
+                            {game_listItems}
+                        </Row>
+                        {/* 图片 */}
+                        <a href=""><img className='game-list' src="http://img.pyw.cn/issue_activity/20201103/8f741528e9c4da6fd50ab54021ee4006.png" alt="" width='100%' height='143' /></a>
+                        {/* 游戏类型列表 */}
+                        {gametype_items}
+                        {/* 底部 */}
+                        <div className='footer-box'>
+                            <a href="https://v.pinpaibao.com.cn/authenticate/cert/?site=pyw.cn&amp;at=business" target="_blank">
+                                <img className='game-list' src="http://static.anquan.org/static/outer/image/hy_124x47.png?id=pyw.cn?t=37" alt="安全联盟认证" width="124" height="47" />
+                            </a>
+                            <p>
+                                <ul>
+                                    <li><a>下载客户端</a></li>
+                                    <li className='li-border'><a>关于我们</a></li>
+                                    <li><a>联系客服</a></li>
+                                </ul>
+                            </p>
+                            <p>©广州朋友玩网络科技有限公司  版权所有</p>
+                            <p><a href="http://www.beian.miit.gov.cn/">粤ICP备13067565号</a></p>
+                            <p>公司电话： 020-87698773</p>
+                            <p>公司地址：广州市天河区建中路66号佳都商务大厦西塔9楼 </p>
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        // 父组件，负责所有的状态、操作、引入
+        class Pageindex extends React.Component {
+            // 设置组件传参
+            constructor(props) {
+                super(props);
+                this.state = { value: '测试input' };
+                this.handleChange = this.handleChange.bind(this);
+            }
+
+            handleChange(event) {
+                this.setState({ value: event.target.value });
+            }
+
+            render() {
+                var value = this.state.value
+                return (
+                    <Content></Content>
+                );
+            }
+        }
+
+        // 触发
+        ReactDOM.render(
+            <Pageindex />,
+            document.getElementById('example')
+        )
+
+    </script>
+
+</body>
+
+</html>
