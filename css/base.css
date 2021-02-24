@@ -6,29 +6,37 @@ body{
 
 .i-48{
     background: url(../img/i_48.png) no-repeat;
-    background-size: 294px auto;
-    width: 41px;
-    height: 41px;
+    background-size: 15.2rem auto;
+    width: 2rem;
+    height: 2rem;
 }
 
 .i-user {
     display: block;
-    /* margin: 0 auto; */
-    background-position: -44px 0;
+    margin: 0 auto;
+    background-position: -2.1rem 0;
 }
 .head-box{
+    width: 100%;
+    max-width: 540px;
     position: fixed;
     top: 0;
     z-index: 9999999; 
     display: flex; 
     padding: 14px;
+    justify-content: space-around
 }
 .head-box-yello{
  background-color: #ffb22d;
 }
+.head-box img{
+    /* width: 11vw; */
+    max-width: 80px;
+    /* height: 5vw; */
+}
 .head-login{
     float: right;
-    width: 49px;
+    width: 3rem;
     /* height: 72px; */
 }
 .head-login a{

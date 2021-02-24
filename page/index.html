@@ -33,13 +33,12 @@
             background: '#364d79',
         };
         const Top_Style = {
-            width: '540px',
+            maxWidth: '540px',
             margin: '0 auto',
             position: 'relative'
         }
         const sear_input = {
-            width: 300,
-            height: 41,
+            width: '50vw',
             borderRadius: 20,
             background: '#fafafa',
             opacity: 0.6
@@ -155,10 +154,10 @@
                         <div id='head-box' className={this.props.goScroll?'head-box head-box-yello':'head-box'}>
                             <div>
                                 <a href="#" >
-                                    <img src="http://pyw.cn/wap/images/logo.png" alt="" width='123px' height='40.5px' />
+                                    <img src="http://pyw.cn/wap/images/logo.png" alt="" />
                                 </a>
                             </div>
-                            <Space direction="vertical" style={{ padding: '0 20px' }}>
+                            <Space direction="vertical" style={{ padding: '0 .4rem' }}>
                                 <Input placeholder="" onClick={this.onSearch} bordered={false} style={sear_input} />
                             </Space>
                             <div className='head-login'>
